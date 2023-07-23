@@ -1,4 +1,4 @@
-package TexWriter.Table;
+package TexWriter.Table.Api;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import TexWriter.Exceptions.CommandNotMatchException;
 
 class CommandParser {
-    final static String COMMANDS = "IGNORE-LINE|DELETE-CELL|DELETE-ROW|DELETE-COLUMN|RESIZE|COPY";
+    final static String COMMANDS = "IGNORE-LINE|DELETE-CELL|DELETE-ROW|DELETE-COLUMN|COPY";
     // command is start with a command name, and end with a semicolon.
     final static String PARSER = String.format("^\\b(?<COMMAND>%s)\\b((?<args>\\w+)\\b)*;$", COMMANDS);
     final static String INT_ARG = "\\d+";
@@ -18,14 +18,12 @@ class CommandParser {
             Map.entry("DELETE-CELL", "DELETE-CELL <row: int> <column: int>"),
             Map.entry("DELETE-ROW", "DELETE-ROW <row: int>"),
             Map.entry("DELETE-COLUMN", "DELETE-COLUMN <column: int>"),
-            Map.entry("RESIZE", "RESIZE <row: int> <column: int>"),
             Map.entry("COPY", "COPY <row: int> <column: int>"));
     final static Map<String, ArgType[]> ARG_TYPES = Map.ofEntries(
             Map.entry("IGNORE-LINE", new ArgType[] { ArgType.INT }),
             Map.entry("DELETE-CELL", new ArgType[] { ArgType.INT, ArgType.INT }),
             Map.entry("DELETE-ROW", new ArgType[] { ArgType.INT }),
             Map.entry("DELETE-COLUMN", new ArgType[] { ArgType.INT }),
-            Map.entry("RESIZE", new ArgType[] { ArgType.INT, ArgType.INT }),
             Map.entry("COPY", new ArgType[] { ArgType.INT, ArgType.INT }));
 
     enum ArgType {

@@ -1,4 +1,4 @@
-package TexWriter.Table;
+package TexWriter.Table.Api;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -7,7 +7,6 @@ import java.util.TreeSet;
 import java.util.regex.*;
 
 import TexWriter.Exceptions.*;
-import TexWriter.Table.CommandParser;
 
 class TableReader {
     /*
@@ -21,7 +20,6 @@ class TableReader {
      */
 
     private ArrayList<Pattern> ignoredLinePattern;
-    // TODO: use some structure which will be sorted will make read faster but IDK
     private TreeSet<Integer> ignoredLineNumber;
     private ArrayList<ArrayList<String>> Table;
     private Pattern cellPattern = null;
@@ -121,9 +119,6 @@ class TableReader {
         return Table.get(column).size();
     }
 
-    private void resize(int row, int column) {
-        // TODO: Implement this
-    }
 
     private ArrayList<String> doCommand(String commandName, ArrayList<Integer> args) {
         // COMMANDS: COMMAND <args...> -> data add to responses;
@@ -148,9 +143,6 @@ class TableReader {
                 for (ArrayList<String> row : Table) {
                     row.remove(args.get(0).intValue());
                 }
-                break;
-            case "RESIZE":
-                resize(args.get(0).intValue(), args.get(1).intValue());
                 break;
             case "COPY":
                 responses.add(Table.get(args.get(0).intValue()).get(args.get(1).intValue()));
